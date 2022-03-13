@@ -1,0 +1,98 @@
+#+title: The Weighted Average Cost of Capital
+#+author: Matt Brigida, Ph.D.
+#+STARTUP: hideblocks
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/org/theme-readtheorg.setup
+
+
+* WACC: The Average Cost of a Firm's Assets
+
+The weighted-average cost of capital (WACC) is the overall cost of capital for the firm.  You can think of it as the required return on the firm's assets as a whole.  
+
+-  If we are considering investing in a project that is about as risky as the overall firm, we can use the WACC as the discount rate in our [[http://www.5minutefinance.org/concepts/net-present-value-and-internal-rate-of-return][NPV]] calculation.
+
+-  The WACC is a function of the firm's capital structure, costs of debt and equity (and preferred stock if present), and the firm's tax rate.
+
+* The Cost of Equity
+
+If we assume that the firm pays dividends, and these dividends (and hence the stock itself) grows at a constant rate, then we can calculate the cost of equity as:
+
+$P_0 = \frac{D_1}{r - g} \Rightarrow r = \frac{D_1}{P_0} + g$
+
+where *r* is the cost of equity, $P_0$ the stock price today, $D_1$ the dividend in the next period, and *g* the growth rate of dividends and the stock price.
+
+The downsides of this approach are:
+
+- The stock must pay a constantly increasing dividend.
+- It doesn't explicitly take into account risk.
+
+* The CAPM Approach
+
+We can also use the CAPM to estimate the cost of equity capital.  Remember, the [[http://www.5minutefinance.org/concepts/the-capital-asset-pricing-model][CAPM]]:
+
+$R_e = R_f + \beta_e(R_m - R_f)$
+
+where $R_e$ is the cost of equity, $R_f$ is the risk-free rate, $\beta_e$ is the amount of systematic risk in the asset *e*, and the expected return on the market minus the risk-free rate $(R_m - R_f)$ is the reward for bearing systematic risk.
+
+-  The benefits of this approach are that it can be applied to any stock (any capital asset) and that it explicitly takes into account risk. 
+
+-  The downside is that we have to estimate two values, wheres previously we only had to estimate the dividend growth rate.
+
+ 
+
+* Cost of Equity App
+
+#+begin_export html
+<iframe width="760" height="815" src="https://micfm.shinyapps.io/WACC_app1/"></iframe>
+#+end_export
+
+* The Cost of Debt
+
+The cost of debt is the yield required by the market on the firm's debt. If the debt is actively traded (meaning we can trust the price), then it is the bond's [[http://www.5minutefinance.org/concepts/for-what-is-the-yield-to-maturity-used][yield-to-maturity]].  If no debt is actively traded, you can infer the cost of debt from the outstanding debt's credit rating.
+
+-  Unlike equity, debt provides the firm a tax shield.  This tax shield lowers the cost of debt---in essence the government is paying a portion of the interest.  
+
+-  We thus adjust the cost of debt $R_d$ by the amount of the tax shield, $R_d(1-\tau)$ where $\tau$ is the firm's tax rate.
+
+# cost of debt app?  maybe at some point; now should we link to YTM calculation in other presentation?
+
+* The Cost of Preferred Stock
+
+Since preferred stock pays a constant dividend every period forever, it is a perpetuity.  Its price today is thus $P_{0, ps} = \frac{D}{R_{ps}}$.
+
+-  We can rearrange this for the cost of preferred stock, $R_{ps} = \frac{D}{P_{0, ps}}$.
+
+-  Like common stock dividends, preferred stock dividends are paid after tax, and so we do not need to adjust the preferred stock required return for taxes.
+
+ 
+
+*  The WACC
+
+Putting the cost of equity, debt, and preferred stock together, we get the weighted average cost of capital:
+
+$WACC = w_eR_e + w_dR_d(1-\tau) + w_{ps}R_{ps}$
+
+where $w_E$, $w_d$, and $w_{ps}$ are the (market-value) weights of equity, debt, and preferred stock in the firm's capital structure.
+
+* WACC App
+
+#+begin_export html
+<iframe width="760" height="615" src="https://micfm.shinyapps.io/WACC_app2/" onload="iFrameResize();"></iframe>
+#+end_export
+
+* The WACC and Project Cost of Capital
+
+Now that we can calculate a firm's WACC, should we use it for each project's required return when capital budgeting (as our NPV discount rate or IRR hurdle rate)?  Not necessarily.  There is an important principle to remember:
+
+#+begin_quote
+Required returns are tied to the use of funds, rather than the source of funds.
+#+end_quote
+
+To understand why, we can simply show how focusing on the source of funds, rather than the use, will lead to obviously incorrect decisions.
+
+Say your company makes consumer staples---these companies provide goods people use daily, such as food, personal products like soap, and food.  Consumer staples firms tend to have low required returns (think of our earlier discussion on the CAPM, these firm's have low systematic risk because people always need to buy consumer staples).
+
+How would we find the appropriate discount rate? 
+
+** Pure Play
+
+

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-05-28 Fri 22:17 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Weighted Average Cost of Capital</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Matt Brigida, Ph.D." />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+<script type="text/javascript">
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
+<!--/*--><![CDATA[/*><!--*/
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">The Weighted Average Cost of Capital</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org36eba8e">1. WACC: The Average Cost of a Firm's Assets</a></li>
+<li><a href="#org65b8aaa">2. The Cost of Equity</a></li>
+<li><a href="#orgf6d0f5a">3. The CAPM Approach</a></li>
+<li><a href="#org3ffd2b2">4. Cost of Equity App</a></li>
+<li><a href="#org7af88e3">5. The Cost of Debt</a></li>
+<li><a href="#orgb6cab93">6. The Cost of Preferred Stock</a></li>
+<li><a href="#orga610329">7. The WACC</a></li>
+<li><a href="#org4b8f41a">8. WACC App</a></li>
+<li><a href="#org48bd369">9. The WACC and Project Cost of Capital</a>
+<ul>
+<li><a href="#orgf59af47">9.1. Pure Play</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org36eba8e" class="outline-2">
+<h2 id="org36eba8e"><span class="section-number-2">1.</span> WACC: The Average Cost of a Firm's Assets</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+The weighted-average cost of capital (WACC) is the overall cost of capital for the firm.  You can think of it as the required return on the firm's assets as a whole.  
+</p>
+
+<ul class="org-ul">
+<li>If we are considering investing in a project that is about as risky as the overall firm, we can use the WACC as the discount rate in our <a href="http://www.5minutefinance.org/concepts/net-present-value-and-internal-rate-of-return">NPV</a> calculation.</li>
+
+<li>The WACC is a function of the firm's capital structure, costs of debt and equity (and preferred stock if present), and the firm's tax rate.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org65b8aaa" class="outline-2">
+<h2 id="org65b8aaa"><span class="section-number-2">2.</span> The Cost of Equity</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If we assume that the firm pays dividends, and these dividends (and hence the stock itself) grows at a constant rate, then we can calculate the cost of equity as:
+</p>
+
+<p>
+\(P_0 = \frac{D_1}{r - g} \Rightarrow r = \frac{D_1}{P_0} + g\)
+</p>
+
+<p>
+where <b>r</b> is the cost of equity, \(P_0\) the stock price today, \(D_1\) the dividend in the next period, and <b>g</b> the growth rate of dividends and the stock price.
+</p>
+
+<p>
+The downsides of this approach are:
+</p>
+
+<ul class="org-ul">
+<li>The stock must pay a constantly increasing dividend.</li>
+<li>It doesn't explicitly take into account risk.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf6d0f5a" class="outline-2">
+<h2 id="orgf6d0f5a"><span class="section-number-2">3.</span> The CAPM Approach</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+We can also use the CAPM to estimate the cost of equity capital.  Remember, the <a href="http://www.5minutefinance.org/concepts/the-capital-asset-pricing-model">CAPM</a>:
+</p>
+
+<p>
+\(R_e = R_f + \beta_e(R_m - R_f)\)
+</p>
+
+<p>
+where \(R_e\) is the cost of equity, \(R_f\) is the risk-free rate, \(\beta_e\) is the amount of systematic risk in the asset <b>e</b>, and the expected return on the market minus the risk-free rate \((R_m - R_f)\) is the reward for bearing systematic risk.
+</p>
+
+<ul class="org-ul">
+<li>The benefits of this approach are that it can be applied to any stock (any capital asset) and that it explicitly takes into account risk.</li>
+
+<li>The downside is that we have to estimate two values, wheres previously we only had to estimate the dividend growth rate.</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-org3ffd2b2" class="outline-2">
+<h2 id="org3ffd2b2"><span class="section-number-2">4.</span> Cost of Equity App</h2>
+<div class="outline-text-2" id="text-4">
+<iframe width="760" height="815" src="https://micfm.shinyapps.io/WACC_app1/"></iframe>
+</div>
+</div>
+
+<div id="outline-container-org7af88e3" class="outline-2">
+<h2 id="org7af88e3"><span class="section-number-2">5.</span> The Cost of Debt</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The cost of debt is the yield required by the market on the firm's debt. If the debt is actively traded (meaning we can trust the price), then it is the bond's <a href="http://www.5minutefinance.org/concepts/for-what-is-the-yield-to-maturity-used">yield-to-maturity</a>.  If no debt is actively traded, you can infer the cost of debt from the outstanding debt's credit rating.
+</p>
+
+<ul class="org-ul">
+<li>Unlike equity, debt provides the firm a tax shield.  This tax shield lowers the cost of debt&#x2014;in essence the government is paying a portion of the interest.</li>
+
+<li>We thus adjust the cost of debt \(R_d\) by the amount of the tax shield, \(R_d(1-\tau)\) where \(\tau\) is the firm's tax rate.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb6cab93" class="outline-2">
+<h2 id="orgb6cab93"><span class="section-number-2">6.</span> The Cost of Preferred Stock</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Since preferred stock pays a constant dividend every period forever, it is a perpetuity.  Its price today is thus \(P_{0, ps} = \frac{D}{R_{ps}}\).
+</p>
+
+<ul class="org-ul">
+<li>We can rearrange this for the cost of preferred stock, \(R_{ps} = \frac{D}{P_{0, ps}}\).</li>
+
+<li>Like common stock dividends, preferred stock dividends are paid after tax, and so we do not need to adjust the preferred stock required return for taxes.</li>
+</ul>
+</div>
+</div>
+
+
+
+<div id="outline-container-orga610329" class="outline-2">
+<h2 id="orga610329"><span class="section-number-2">7.</span> The WACC</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Putting the cost of equity, debt, and preferred stock together, we get the weighted average cost of capital:
+</p>
+
+<p>
+\(WACC = w_eR_e + w_dR_d(1-\tau) + w_{ps}R_{ps}\)
+</p>
+
+<p>
+where \(w_E\), \(w_d\), and \(w_{ps}\) are the (market-value) weights of equity, debt, and preferred stock in the firm's capital structure.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4b8f41a" class="outline-2">
+<h2 id="org4b8f41a"><span class="section-number-2">8.</span> WACC App</h2>
+<div class="outline-text-2" id="text-8">
+<iframe width="760" height="615" src="https://micfm.shinyapps.io/WACC_app2/" onload="iFrameResize();"></iframe>
+</div>
+</div>
+
+<div id="outline-container-org48bd369" class="outline-2">
+<h2 id="org48bd369"><span class="section-number-2">9.</span> The WACC and Project Cost of Capital</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Now that we can calculate a firm's WACC, should we use it for each project's required return when capital budgeting (as our NPV discount rate or IRR hurdle rate)?  Not necessarily.  There is an important principle to remember:
+</p>
+
+<blockquote>
+<p>
+Required returns are tied to the use of funds, rather than the source of funds.
+</p>
+</blockquote>
+
+<p>
+To understand why, we can simply show how focusing on the source of funds, rather than the use, will lead to obviously incorrect decisions.
+</p>
+
+<p>
+Say your company makes consumer staples&#x2014;these companies provide goods people use daily, such as food, personal products like soap, and food.  Consumer staples firms tend to have low required returns (think of our earlier discussion on the CAPM, these firm's have low systematic risk because people always need to buy consumer staples).
+</p>
+
+<p>
+How would we find the appropriate discount rate? 
+</p>
+</div>
+
+<div id="outline-container-orgf59af47" class="outline-3">
+<h3 id="orgf59af47"><span class="section-number-3">9.1.</span> Pure Play</h3>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Matt Brigida, Ph.D.</p>
+<p class="date">Created: 2021-05-28 Fri 22:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
